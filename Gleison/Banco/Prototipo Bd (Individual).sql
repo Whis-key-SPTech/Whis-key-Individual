@@ -1,0 +1,29 @@
+CREATE DATABASE WHISKEY_INDIVIDUAL;
+
+USE WHISKEY_INDIVIDUAL;
+
+CREATE TABLE empresa (
+id_empresa INT PRIMARY KEY AUTO_INCREMENT,
+nome_empresa VARCHAR (50) NOT NULL,
+cnpj CHAR(18) NOT NULL
+);
+
+CREATE TABLE usuario(
+id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+id_empresa INT NOT NULL,
+nome_usuario VARCHAR (50) NOT NULL,
+email VARCHAR (100) NOT NULL UNIQUE,
+senha VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE sensor (
+id_sensor INT PRIMARY KEY AUTO_INCREMENT,
+local_sensor VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE monitoramento_sensor (
+id_monitoramento_sensor INT PRIMARY KEY AUTO_INCREMENT,
+id_senor INT NOT NULL,
+temperatura DECIMAL (4,2) NOT NULL,
+umidade INT NOT NULL
+);

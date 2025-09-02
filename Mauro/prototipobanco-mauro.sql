@@ -1,0 +1,44 @@
+CREATE DATABASE whiskeymauro;
+
+USE whiskeymauro;
+
+CREATE TABLE empresa(
+idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+email VARCHAR(80) NOT NULL UNIQUE,
+cnpj CHAR(14) NOT NULL,
+dtRegistro DATETIME default (current_timestamp)
+);
+
+CREATE TABLE coletaUmidade(
+idColeta INT PRIMARY KEY AUTO_INCREMENT,
+dtColeta DATE default (CURRENT_DATE),
+hrColeta TIME default (CURRENT_TIME),
+umidade INT NOT NULL,
+umiMax INT,
+umiMin INT
+);
+
+CREATE TABLE coletaTemp(
+idColeta INT PRIMARY KEY AUTO_INCREMENT,
+dtCOleta DATE default (CURRENT_DATE),
+hrColeta TIME default (CURRENT_TIME),
+temperatura DECIMAL(5,2) NOT NULL,
+tempMax DECIMAL(5,2) NOT NULL,
+tempMin DECIMAL(5,2) NOT NULL
+);
+
+-- A TABELA REFERENCIA EXISTE PRA FUTURA IMPLEMENTAÇÃO DE FOREIGN KEYS, POSSIBILITANTO
+-- O USO DA INFORMAÇÃO MAXIMA E MINIMA DAS COLETAS DE FORMA MAIS DINAMICA E CUSTOMIZAVEL.
+CREATE TABLE referencia(
+idRef INT PRIMARY KEY AUTO_INCREMENT,
+nomeWhiskey VARCHAR(60) NOT NULL UNIQUE,
+tempMax DECIMAL(5,2) NOT NULL,
+tempMin DECIMAL(5,2) NOT NULL,
+umiMax INT,
+umiMin INT
+);
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+
+

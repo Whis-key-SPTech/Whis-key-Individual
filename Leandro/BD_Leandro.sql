@@ -16,7 +16,7 @@ dtFimContrato DATE,
 plano VARCHAR (20)
 );
 	
--- Tabela contendo as configurações e limitadores de temperatura para cada tipo de whisky (o mesmo padrão sera usado na tabela de umidade.
+-- Tabela contendo as configurações e limitadores de temperatura para cada tipo de whisky (o mesmo padrão sera usado na tabela de umidade).
 CREATE TABLE monitor_temp(
 idTtemp INT PRIMARY KEY AUTO_INCREMENT,
 idSensor INT NOT NULL,

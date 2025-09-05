@@ -1,0 +1,85 @@
+<!-- 
+Marina Yuri Okamoto - GRUPO 02 - WHIS{KEY}
+
+PROTÓTIPO CALCULADORA FINANCEIRA 01 
+CÁLCULO DE PERDA REFERENTE AO ANGEL'S SHARE PARA DESTILARIAS DE DIFERENTES LOCALIZAÇÕES  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h3>Calculadora de perda financeira referente ao Angel's Share para destilarias localizadas
+        em climas tropicais e subtropicais
+    </h3>
+
+    <span>insira a quantidade em litros da sua produção de whisky:</span>
+    <input type="number" id="input_litros">
+    <br><br>
+    
+    <span>insira a duração de anos que seu whisky ficará em processo de maturação:</span>
+    <input type="number" id="input_anos">
+    <br><br>
+
+    <button onclick="calcular()">calcular perda</button>
+
+    <button onclick="economizar()">wis{key}</button>
+    <br><br>
+
+    <div id="div_mensagem"></div>
+
+</body>
+</html>
+
+<script>
+
+var porcentEvapo = 12/100;
+var litros = 0;
+var perda = 0
+var novoLitro = 0;
+var porcentWiskey = 2/100;
+var final = 0
+
+    function calcular() {
+        litros = Number(input_litros.value);
+        perda = litros*porcentEvapo;
+        var anos = Number(input_anos.value);
+        volfinal = litros*(1-12/100)**anos;
+        perdaFinal = litros-volfinal;
+
+        div_mensagem.innerHTML =
+        `Segundo o ìndice médio de perda de 12% para destilarias localizadas em climas tropicais ou 
+        subtropicais, <br>
+        A sua produção de <b>${litros} litros</b> perde <b>${perda} litros</b> por ano, 
+        <br> e no final dos ${anos} anos, o prejuízo será de <b>${perdaFinal} litros</b> .`
+    }
+
+    function economizar() {
+        litros = Number(input_litros.value);
+        perdaWiskey = litros * porcentWiskey;
+        perda = litros*porcentEvapo;
+
+        var anos = Number(input_anos.value);
+        volfinal = litros*(1-12/100)**anos;
+        perdaFinal = litros-volfinal;
+        
+        volfinalWhiskey = litros*(1-2/100)**anos;
+        perdaFinalWhiskey = litros-volfinalWhiskey;
+
+        diferencaWhiskey = perdaFinal - perdaWiskey;
+        
+        div_mensagem.innerHTML = div_mensagem.innerHTML +
+        `<br> <br>Com o controle de temperatura e umidade oferecido pelos sensores da <b>Whis{key}</b>, 
+        a porcentagem do Angel's Share cairia para <b>2%</b>. <br>
+        Assim, a sua produção de <b>${litros} litros</b> perderia apenas <b>${perdaWiskey} litros</b> por ano.
+        <br> E no final dos ${anos}, o prejuízo seria de <b>${perdaFinalWhiskey} litros</b>.
+        <br> Uma diferença de <b>${diferencaWhiskey} litros</b>.`
+    }
+
+
+
+</script>

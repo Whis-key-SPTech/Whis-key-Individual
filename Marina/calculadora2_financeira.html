@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Previsão de sabor do uísque</h3>
+
+    <span>insira a temperatura do seu armazém:</span>
+    <input type="number" placeholder=" temperatura em ºC" id="input_temp">
+    <br><br>
+
+    <button onclick="sabor()" >descubra o sabor!</button>
+    <br><br>
+
+    <div id="div_mensagem"></div>
+
+</body>
+</html>
+
+<!--
+temperatura adequada de 15 a 20° C
+sabor suave - 13.3 anos (média dos 6 melhores categorizados suaves) - temperatura menor (15~17.5)
+sabor forte - 10.5 anos (média dos 6 melhores categorizados fortes)- temperatura maior (17.5~20)
+-->
+
+<script>
+    function sabor() {
+        var temperatura = Number(input_temp.value);
+
+        if (temperatura>=17.5) {
+            if (temperatura<20) {
+            div_mensagem.innerHTML = 
+            `Considerando que a temperatura de ${temperatura}°C do seu armazém foi mantida constante, 
+            <br>seu uísque teria uma <b>maturação acelerada</b>, devido a alta temperatura, 
+            <br>ocasionando em um <b>sabor mais intenso.</b>`
+            } else {
+                div_mensagem.innerHTML = 
+                `<b>A temperatura de ${temperatura}°C do seu armazém não é recomendada para o processo
+                de maturação do uísque.</b>`
+            }
+        }
+        if (temperatura<17.5) {
+            if (temperatura>0) {
+            div_mensagem.innerHTML = 
+            `Considerando que a temperatura de ${temperatura}°C do seu armazém foi mantida constante, 
+            <br>seu uísque teria uma <b>maturação mais lenta</b>, devido a baixa temperatura, 
+            <br>ocasionando em um <b>sabor mais suave e complexo.</b>`
+            }
+            else {
+            div_mensagem.innerHTML = 
+                `<b>A temperatura de ${temperatura}°C do seu armazém não é recomendada para o processo
+                de maturação do uísque.</b>`
+            }
+        }
+    }
+
+</script>

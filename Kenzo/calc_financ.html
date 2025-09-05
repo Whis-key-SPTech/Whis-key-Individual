@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span>Insira o preço do seu produto (garrafas de 700ml): </span>
+        <input type="text" id="input_price">
+            <br>
+    <span>Quantidade de garrafas perdidas diariamente: </span>
+        <input type="text" id="input_dailybottle">
+            <br>
+
+    <button onclick="calculate()">Calcule quanto você pode economizar</button>
+    <div id="div_mensagem"></div>
+</body>
+</html>
+<script>
+    
+    function calculate() {
+        var preco = Number(input_price.value)
+        var garrafas = Number(input_dailybottle.value)
+        var litros = garrafas * 0.7 
+        
+        // .7l = 120
+        // 1 = x
+        // x = (preco * 1) / 7
+        var litrosemrs = ((preco * 1) / .7);
+        var perdaevitada = litrosemrs * 700
+        var perdaano = litros * (preco / .7) * 365
+    div_mensagem.innerHTML = 
+    `A sua perda é equivalente a
+    ${litros} litros do seu produto diariamente; <br>
+    Isso te faz perder em vendas R$${litros * (preco/.7)} diariamente; <br>
+    O que equivale a R$${litrosemrs} por litro; <br>
+    Em um ano, a sua perda vai ser de R$${perdaano}; <br>
+    O que equivale a ${litros * 365} litros anualmente, o que é igual a ${garrafas * 365} garrafas; <br>`
+
+
+// 30.000 garrafas perdidas por dia
+// 8% ao ano do volume do produto ao ano
+// 109.500.000 de garrafas ANUALMENTE
+// Calcular prejuizo em litros
+    }
+</script>

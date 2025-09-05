@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+<body style="background-color: antiquewhite;">
+    <h4>Calculadora Financeira</h4>
+     <span>Digite quantidade de barril</span>
+     <input type="number" id="ipt_barril"><br>
+     <span>Digite quantidade de litros</span>
+     <input type="number" id="ipt_litros"><br>
+     <span>Digite o tempo da maturação</span>
+     <input type="number" id="ipt_maturacao" placeholder="tempo em anos"><br>
+
+     <button onclick="btt_calcularpior()">Calcular Pior Cenario</button> <br>
+
+     <button onclick="btt_calcularmelhor()">Calcular Melhor Cenário</button>
+
+     <div id="div_mensagem"></div>
+     <div id="div_msg"></div>
+
+</body>
+</html>
+<script>
+    
+    function btt_calcularpior (){
+        var barril = Number(ipt_barril.value);
+        var litros = Number(ipt_litros.value);
+        var anos = Number(ipt_maturacao.value);
+        var quantidade = barril * litros
+        var share = quantidade * (1-0.10)**anos
+
+        
+
+        div_mensagem.innerHTML += `Calculando no pior cenário com uma perda no <span style="color:red"><b> angel share 10% ao ano </span><b> por ${anos} anos você perderá <br>
+        <span style="color:red"><b>${quantidade - share}</span><b> resultando na quantidade final de <span style="color:red"><b> ${share}</span><b> litros!<br><br>`
+
+    }
+
+    function btt_calcularmelhor(){
+        var barril = Number(ipt_barril.value);
+        var litros = Number(ipt_litros.value);
+        var anos = Number(ipt_maturacao.value);
+        var quantidade = barril * litros
+        var share = quantidade * (1-0.02)**anos
+
+        div_mensagem.innerHTML += `Calculando no melhor cenário com uma perda no <span style="color:green"><b> angel share 2% ao ano </span><b> por ${anos} anos você perderá <br>
+        <span style="color:green"><b>${quantidade - share}</span><b> resultando na quantidade final de <span style="color:green"><b> ${share}</span><b> litros!<br><br><br>`
+           
+
+    }
+
+</script>

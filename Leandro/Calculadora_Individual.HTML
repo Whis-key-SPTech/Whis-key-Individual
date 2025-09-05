@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>simulador financeiro</title>
+</head>
+<body>
+    <h1>SIMULADOR FINANCEIRO</h1>
+
+    Insira a quantidade de barris em produção:
+    <input type="number" id="input_qtd"><br><br>
+
+    Insira o tamanho do barril em litros:
+    <input type="number" id="input_barril"><br><br>
+
+    Insira o tamanho das garrafas em litros:
+    <input type="number" id="input_garrafa"><br><br>
+
+    Insira a sua taxa de Angels Share (%):
+    <input type="number" id="input_porcent"><br><br>
+
+    Defina a duração da produção:
+    <input type="number" id="input_ano"><br><br>
+
+<button onclick="calcular()">calcular</button> <br><br>
+
+<div id="div_mensagem"></div><br><br>
+
+</body>
+</html>
+<script>
+   
+function calcular () {
+
+    var qtdBarris = Number (input_qtd.value)
+    var barrilLitros = Number(input_barril.value)
+    var garrafalitros = Number (input_garrafa.value)
+    var estoqueinicial = qtdBarris * barrilLitros
+    var porcentagem = Number (input_porcent.value);
+    var taxa = porcentagem / 100 
+    var ano = Number (input_ano.value);
+    var acumulado = estoqueinicial
+    var valorperda = estoqueinicial * (1 - taxa) ** ano;
+    var perdabarril = valorperda / barrilLitros
+    var perdagarrafa = valorperda / garrafalitros
+
+    div_mensagem.innerHTML = `Ao final da sua produção, você perdera ${valorperda} litros de uisque, o que equivale a ${perdabarril} barris da sua produção, ou ${perdagarrafa} garrafas <br>`
+}
+
+</script>
+
+

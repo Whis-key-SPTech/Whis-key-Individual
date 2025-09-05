@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div_titulo">
+        <h1>Simulador financeiro</h1>
+    </div>
+
+    <div id="Div_menu">
+        
+        <button id="bt_menu" onclick="angel()">Angel Shere</button>
+        <button id="bt_proximo" onclick="proximo()">proximos calculos</button>
+
+        <br><br>
+
+    </div>
+
+    <div id="calculadora">
+       
+        
+
+    </div>
+
+
+</body>
+</html>
+
+<script>
+
+var taxa_evaporacao;
+var producao_lt;
+var preco_medio;
+var media_perda
+
+function angel(){
+
+    calculadora.innerHTML = `
+        <label for="inp_evaporacaoW">Taxa de evaporação:</label>
+        <br>
+        <input type="text" id="inp_evaporacaoW">
+
+        <br><br>
+
+        <label for="inp_litrosW">Produção (lt):</label>
+        <br>
+        <input type="text" id="inp_litrosW">
+
+        <br><br>
+        
+        <label for="inp_precoW">Preco Medio:</label>
+        <br>
+        <input type="text" id="inp_precoW">
+
+        <br><br>
+
+        <label for="inp_maturacao">Tempo de Maturação:</label>
+        <br>
+        <input type="text" id="inp_maturacao">
+
+        <br><br>
+
+        <button id="bt_calculo" onclick="calcular()">Resultado</button>
+
+        <div id="div_resultado"></div>`
+
+}
+
+function proximo(){
+
+    calculadora.innerHTML = ``;
+
+}
+
+function variaveis(){
+    taxa_evaporacao = Number(inp_evaporacaoW.value / 100);
+    producao_lt = Number( inp_litrosW.value);
+    preco_medio = Number( inp_precoW.value);
+    tempo_maturacao = Number(inp_maturacao.value);
+    
+    console.log(taxa_evaporacao);
+    console.log(producao_lt);
+    console.log(preco_medio);
+    console.log(tempo_maturacao);
+
+}
+
+function calcular(){
+    variaveis()
+
+    calculo = producao_lt * (1 - taxa_evaporacao) ** tempo_maturacao
+    media_perda = producao_lt - calculo;
+    valor_perda = media_perda * preco_medio
+
+    div_resultado.innerHTML = `Sua perda aproximada sera de ${media_perda},<br>
+    o que ira gerar R$ ${valor_perda} de prejuiso ao faturamento.`
+
+}
+
+</script>

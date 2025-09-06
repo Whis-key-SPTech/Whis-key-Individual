@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade da calculadora</title>
+</head>
+<body>
+
+    <h1>Caclculadora financeira</h1>
+
+
+
+    <label for="mediaLitro">Digite o valor médio do valor por litro dos seus whiskey </label>
+    <input type="text" id="mediaLitro">
+    <br>
+    
+    
+    <label for="litroBarril">Digite a quantidade de litros no barril </label>
+    <input type="text" id="litroBarril">
+    <br>
+    
+    <label for="qtPerda">Digite quantos porcento ocorre de evaporação </label>
+    <input type="text" id="qtPerda">
+    <br>
+
+    <button onclick="calcular()">Verficar o valor perdido por evaporação </button>
+
+    <div id="div_mensagem"></div>
+
+    <div id="div_mensagemTotal"></div>
+</body>
+</html>
+
+<script>
+
+    var total=0;
+
+    var ano=2024;
+
+     function calcular(){
+        var mediaLi= Number(mediaLitro.value);
+
+        var barLi= Number(litroBarril.value);
+
+        var perda= Number(qtPerda.value);
+
+        ano++;
+
+        var litroPerdido=barLi*(perda/100);
+
+        var perdaNew=litroPerdido*mediaLi;
+
+        total+=perdaNew;
+
+        div_mensagem.innerHTML=`O valor da sua perda por ano é R$${perdaNew} ocorrendo uma perda de ${litroPerdido} litros <br>`;
+
+       div_mensagemTotal.innerHTML+= ` <br> O valor acumulador no ${ano}  é ${total} <br>`;
+
+
+    };
+</script>

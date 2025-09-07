@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Whiskey Calculadora</title>
+</head>
+<body>
+    <header></header>
+    <main>
+        <section class="section_left">
+            <div class="div_option">
+                <h1 class="h1_nav" id="h1_1" onclick="ShowCalcPPBSection()">Calculadora de Lucro por Barril</h1>
+            </div>
+            <div class="div_option">
+                <h1 class="h1_nav" id="h1_2" onclick="ShowCalcLPBDSection()">Calculadora de Prejuízo por Descarte</h1>
+            </div>
+            <div class="div_option">
+                <h1 class="h1_nav" id="h1_3" onclick="ShowCalcLPBDSection()">Calculadora de Angel'S Share</h1>
+            </div>
+            <div class="div_option">
+                <h1 class="h1_nav" id="h1_4" onclick="ShowCalcLPBDSection()">Calcular Evaporação de Volume e Prejuízo</h1>
+            </div>
+            <div class="div_option">
+                <h1 class="h1_nav" id="h1_5" onclick="ShowCalcLPBDSection()">Calculadora Financeira</h1>
+            </div>
+        </section>
+        <section id="section_right"></section>
+    </main>
+    
+    <script>
+        function ShowCalcPPBSection() {
+            h1_1.style.color = "green"
+            h1_2.style.color = "black"
+            h1_3.style.color = "black"
+            h1_4.style.color = "black"
+            h1_5.style.color = "black"
+            
+            section_right.innerHTML = `
+                <div class="centralize_elements">
+                    <div class="div_input">
+                        <label for="input_initial_volume" >Volume inicial do barril:</label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_initial_volume">Taxa anual de Angel's Share (%):</label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_initial_volume">Tempo total de maturação:</label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_initial_volume">Custo anual por litro: </label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    <button class="calc_button" onclick="CalcPPB()">Calcular</button>
+                </div>
+            `
+            
+        }
+        
+        function ShowCalcLPBDSection() {
+            h1_1.style.color = "black"
+            h1_2.style.color = "green"
+            h1_3.style.color = "black"
+            h1_4.style.color = "black"
+            h1_5.style.color = "black"
+
+            section_right.innerHTML = `
+                <div class="centralize_elements">
+                    <div class="div_input">
+                        <label for="input_initial_volume" >Volume inicial do barril:</label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_initial_volume">Custo anual por litro: </label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_initial_volume">Custo do barril:</label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    
+                    <button class="calc_button" onclick="CalcPPB()">Calcular</button>
+                </div>
+            `
+        }
+    </script>
+</body>
+</html>

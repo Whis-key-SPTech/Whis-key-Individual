@@ -17,13 +17,13 @@
                 <h1 class="h1_nav" id="h1_2" onclick="ShowCalcLPBDSection()">Calculadora de Prejuízo por Descarte</h1>
             </div>
             <div class="div_option">
-                <h1 class="h1_nav" id="h1_3" onclick="ShowCalcLPBDSection()">Calculadora de Angel'S Share</h1>
+                <h1 class="h1_nav" id="h1_3" onclick="ShowCalcASSection()">Calculadora de Angel'S Share</h1>
             </div>
             <div class="div_option">
-                <h1 class="h1_nav" id="h1_4" onclick="ShowCalcLPBDSection()">Calcular Evaporação de Volume e Prejuízo</h1>
+                <h1 class="h1_nav" id="h1_4" onclick="ShowCalcVEALection()">Calcular Evaporação de Volume e Prejuízo</h1>
             </div>
             <div class="div_option">
-                <h1 class="h1_nav" id="h1_5" onclick="ShowCalcLPBDSection()">Calculadora Financeira</h1>
+                <h1 class="h1_nav" id="h1_5" onclick="ShowCalcABVSection()">Calculadora de ABV Final</h1>
             </div>
         </section>
         <section id="section_right"></section>
@@ -38,28 +38,60 @@
             h1_5.style.color = "black"
             
             section_right.innerHTML = `
-                <div class="centralize_elements">
+                <div class="centralize_elements" id="div_main">
                     <div class="div_input">
-                        <label for="input_initial_volume" >Volume inicial do barril:</label>
-                        <input type="number" id="input_initial_volume">
+                        <label for="input_iv" >Volume inicial do barril:</label>
+                        <input type="number" id="input_iv">
                     </div>
                     <div class="div_input">
-                        <label for="input_initial_volume">Taxa anual de Angel's Share (%):</label>
-                        <input type="number" id="input_initial_volume">
+                        <label for="input_as">Taxa anual de Angel's Share (%):</label>
+                        <input type="number" id="input_as">
                     </div>
                     <div class="div_input">
-                        <label for="input_initial_volume">Tempo total de maturação:</label>
-                        <input type="number" id="input_initial_volume">
+                        <label for="input_t">Tempo total de maturação:</label>
+                        <input type="number" id="input_t">
                     </div>
                     <div class="div_input">
-                        <label for="input_initial_volume">Custo anual por litro: </label>
-                        <input type="number" id="input_initial_volume">
+                        <label for="input_cost">Custo anual por litro (R$): </label>
+                        <input type="number" id="input_cost">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_profit">Lucro por litro (R$): </label>
+                        <input type="number" id="input_profit">
                     </div>
                     <button class="calc_button" onclick="CalcPPB()">Calcular</button>
+                    <div id="div_result"></div>
                 </div>
             `
-            
         }
+        
+        function CalcPPB() {
+            var iVolume = Number(input_iv.value);
+            var angelShare = Number(input_as.value) / 100;
+            var year = Number(input_t.value);
+            var costPerLiter = Number(input_cost.value);
+            var profitPerLiter = Number(input_profit.value);
+            
+            var fVolume = iVolume * (1-angelShare)**year;
+            console.log(fVolume)
+            var income = fVolume * profitPerLiter * year;
+            console.log(income)
+            var finalCost = iVolume * costPerLiter * year;
+            console.log(finalCost)
+            var profit = income - finalCost;
+            console.log(profit)
+            
+            
+            div_result.innerHTML = `
+                <br>
+                <p>Considerando um período de ${year} anos, teremos: <br> 
+                    Volume final de <span class="span_value" style="color: red">${fVolume.toFixed(2)}</span> litros. <br>
+                    Receita de <span class="span_value" style="green">R$${income.toFixed(2)}</span> <br>
+                    Lucro de <span class="span_value" style="color: ${income > finalCost ? "green" : "red"}">R$${profit.toFixed(2)}</span> <br>
+                </p>    
+            `
+        }
+        
         
         function ShowCalcLPBDSection() {
             h1_1.style.color = "black"
@@ -67,7 +99,105 @@
             h1_3.style.color = "black"
             h1_4.style.color = "black"
             h1_5.style.color = "black"
+            
+            section_right.innerHTML = `
+                <div class="centralize_elements">
+                    <div class="div_input">
+                        <label for="input_iv">Volume inicial do barril:</label>
+                        <input type="number" id="input_iv">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_cost">Custo do litro: </label>
+                        <input type="number" id="input_cost">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_bc">Custo do barril:</label>
+                        <input type="number" id="input_bc">
+                    </div>
+                    
+                    <button class="calc_button" onclick="CalcLPBD()">Calcular</button>
+                    <div id="div_result"></div>
+                </div>
+            `
+        }
 
+        function CalcLPBD() {
+            var iVolume = Number(input_iv.value);
+            var costPerLiter = Number(input_cost.value);
+            var barrelCost = Number(input_bc.value);
+            
+            var finalCostPerLiter = iVolume * costPerLiter;
+            var finalLoss = finalCostPerLiter + barrelCost;
+            
+            div_result.innerHTML = `
+                <br>
+                <p>
+                    O descarte desse lote resultaria em um prejuízo de <span class="span_value" style="color: red">R$${finalLoss.toFixed(2)}</span>
+                </p>    
+            `
+        }
+        
+        function ShowCalcASSection() {
+            h1_1.style.color = "black"
+            h1_2.style.color = "black"
+            h1_3.style.color = "green"
+            h1_4.style.color = "black"
+            h1_5.style.color = "black"
+            
+            section_right.innerHTML = `
+                <div class="centralize_elements">
+                    <div class="div_input">
+                        <label for="input_initial_volume" >Volume inicial do barril:</label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_initial_volume">Custo anual por litro: </label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_initial_volume">Custo do barril:</label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    
+                    <button class="calc_button" onclick="CalcPPB()">Calcular</button>
+                </div>
+            `
+        }
+        
+        function ShowCalcVEALection() {
+            h1_1.style.color = "black"
+            h1_2.style.color = "black"
+            h1_3.style.color = "black"
+            h1_4.style.color = "green"
+            h1_5.style.color = "black"
+            
+            section_right.innerHTML = `
+                <div class="centralize_elements">
+                    <div class="div_input">
+                        <label for="input_initial_volume" >Volume inicial do barril:</label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_initial_volume">Custo anual por litro: </label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    <div class="div_input">
+                        <label for="input_initial_volume">Custo do barril:</label>
+                        <input type="number" id="input_initial_volume">
+                    </div>
+                    
+                    <button class="calc_button" onclick="CalcPPB()">Calcular</button>
+                </div>
+            `
+        }
+        
+        function ShowCalcABVSection() {
+            h1_1.style.color = "black"
+            h1_2.style.color = "black"
+            h1_3.style.color = "black"
+            h1_4.style.color = "black"
+            h1_5.style.color = "green"
+            
             section_right.innerHTML = `
                 <div class="centralize_elements">
                     <div class="div_input">

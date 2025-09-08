@@ -1,0 +1,121 @@
+CREATE DATABASE WHISKEY;
+USE WHISKEY;
+
+CREATE TABLE EMPRESA (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    NOME VARCHAR(50) NOT NULL,
+    CNPJ CHAR(14) NOT NULL UNIQUE,
+    DT_INIC_CONTRATO DATE NOT NULL,
+    DT_FIM_CONTRATO DATE NOT NULL
+);
+
+CREATE TABLE USUARIO (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    NOME VARCHAR(50) NOT NULL,
+    EMPRESA VARCHAR(50) NOT NULL,
+    EMAIL VARCHAR(100) NOT NULL UNIQUE,
+    PERMISSAO VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE MONITOR_TEMP (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    DATA DATE DEFAULT (CURRENT_DATE),
+    HORA TIME DEFAULT (CURRENT_TIME),
+    VALOR DECIMAL(4,2) NOT NULL,
+    MIN DECIMAL(4,2) NOT NULL,
+    MAX DECIMAL(4,2) NOT NULL
+);
+
+CREATE TABLE MONITOR_UMID (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    DATA DATE DEFAULT (CURRENT_DATE),
+    HORA TIME DEFAULT (CURRENT_TIME),
+    VALOR INT NOT NULL,
+    MIN INT NOT NULL,
+    MAX INT NOT NULL
+);
+
+CREATE TABLE SENSOR (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    LOCALIZACAO VARCHAR(30)
+);
+
+INSERT INTO EMPRESA (NOME, CNPJ, DT_INIC_CONTRATO, DT_FIM_CONTRATO) VALUES
+('Glenfiddich Brasil', '12345678000199', '2023-01-01', '2025-01-01'),
+('Glenlivet Import', '98765432000188', '2022-05-15', '2025-05-15');
+
+INSERT INTO USUARIO (NOME, EMPRESA, EMAIL, PERMISSAO) VALUES
+('Carlos Andrade', 'Glenfiddich Brasil', 'carlos@glf.com', 'ADMIN'),
+('Roberto Silva', 'Glenlivet Import', 'roberto@glv.com', 'USER');
+
+INSERT INTO MONITOR_TEMP (VALOR, MIN, MAX) VALUES
+(22.5, 20.0, 25.0),
+(27.3, 19.5, 24.0),
+(19.0, 21.0, 26.0);
+
+INSERT INTO MONITOR_UMID (VALOR, MIN, MAX) VALUES
+(60, 50, 70),
+(40, 45, 65),
+(80, 55, 75);
+
+INSERT INTO SENSOR (LOCALIZACAO) VALUES
+('Sala de Maturação A'),
+('Sala de Maturação B'),
+('Depósito Seco');
+
+SELECT 
+    NOME AS Usuario,
+    CONCAT(NOME, ' - ', EMPRESA) AS 'Usuario Empresa',
+    CONCAT('Email: ', EMAIL) AS Contato
+FROM USUARIO;
+
+SELECT 
+    NOME AS Empresa,
+    CNPJ,
+    CASE 
+        WHEN CURDATE() BETWEEN DT_INIC_CONTRATO AND DT_FIM_CONTRATO 
+            THEN 'Contrato Ativo'
+        ELSE 'Contrato Expirado'
+    END AS 'Status Contrato'
+FROM EMPRESA;
+
+SELECT 
+    ID,
+    VALOR AS Temperatura,
+    CONCAT(DATA, ' ', HORA) AS Momento,
+    CASE 
+        WHEN VALOR < MIN THEN 'Abaixo do mínimo'
+        WHEN VALOR > MAX THEN 'Acima do máximo'
+        ELSE 'Dentro do intervalo'
+    END AS Status
+FROM MONITOR_TEMP;
+
+SELECT 
+    ID,
+    VALOR AS Umidade,
+    CONCAT('Mín: ', MIN, ' | Máx: ', MAX) AS Intervalo,
+    CASE 
+        WHEN VALOR < MIN THEN 'Umidade Baixa'
+        WHEN VALOR > MAX THEN 'Umidade Alta'
+        ELSE 'Umidade Ideal'
+    END AS Status
+FROM MONITOR_UMID;
+
+SELECT 
+    ID,
+    CONCAT('Sensor #', ID, ' - ', LOCALIZACAO) AS Descricao
+FROM SENSOR;
+
+SELECT 
+    NOME AS Usuario,
+    EMPRESA AS Empresa,
+    CASE 
+        WHEN PERMISSAO = 'ADMIN' THEN 'Administrador do Sistema'
+        ELSE 'Usuário Comum'
+    END AS 'Tipo Usuario'
+FROM USUARIO;
+
+
+
+
+
